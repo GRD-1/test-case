@@ -1,0 +1,32 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("POSTGRES_URL")
+}
+
+model User {
+  id          String       @id @default(uuid()) @db.Uuid
+  email       String       @unique @db.VarChar(50)
+  nickname    String       @db.VarChar(20)
+  avatar      String?      @db.VarChar
+  createdAt   DateTime     @default(now()) @db.Timestamp(6)
+  updatedAt   DateTime     @default(now()) @updatedAt @db.Timestamp(6)
+  deleteMark  Boolean      @default(false)
+  credentials Credentials? @relation("UserRelation")
+
+  @@map("users")
+}
+
+model Credentials {
+  userId       String   @id @db.Uuid
+  password     String   @db.VarChar
+  version      Int      @default(1)
+  lastPassword String   @default("") @db.VarChar
+  updatedAt    DateTime @default(now()) @updatedAt @db.Timestamp(6)
+  users        User     @relation("UserRelation", fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  @@map("credentials")
+}

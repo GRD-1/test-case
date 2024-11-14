@@ -1,0 +1,10 @@
+/.idea
+/dist
+/node_modules
+test/coverage
+/db
+package-lock.json
+tsconfig.build.tsbuildinfo
+.env
+keys/private.pem
+keys/public.pem

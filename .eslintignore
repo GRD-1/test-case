@@ -1,0 +1,14 @@
+.idea/
+node_modules/
+git
+db/
+dist/
+docker/
+.husky/
+.github/
+public/
+*.json
+README.md
+.huskyrc
+.giignore
+prisma/schema.prisma

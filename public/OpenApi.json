@@ -1,0 +1,661 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/user": {
+      "get": {
+        "operationId": "UserController_findOneById",
+        "summary": "Get the current user data",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "The user has been found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserRespDto"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authorization is required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": [
+                    {
+                      "error": true,
+                      "statusCode": 401,
+                      "errorMsg": "Unauthorized"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "user"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      },
+      "patch": {
+        "operationId": "UserController_update",
+        "summary": "Update a user data",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUserDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The user has been updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserRespDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid user data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "error": true,
+                    "statusCode": 400,
+                    "errorMsg": "Bad Request"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authorization is required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": [
+                    {
+                      "error": true,
+                      "statusCode": 401,
+                      "errorMsg": "Unauthorized"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "user"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "UserController_delete",
+        "summary": "Delete user",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "The user has been deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": "The account has been deleted"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authorization is required",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": [
+                    {
+                      "error": true,
+                      "statusCode": 401,
+                      "errorMsg": "Unauthorized"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Access denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "error": true,
+                    "statusCode": 403,
+                    "errorMsg": "Access denied"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "user"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/auth/sign-up": {
+      "post": {
+        "operationId": "AuthController_signUp",
+        "summary": "Create a new user",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SignUpDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": "530350e2-cc3f-40fb-b82e-7e4241a3c03b"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "error": true,
+                    "statusCode": 400,
+                    "errorMsg": "Bad Request"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unique key violation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "error": true,
+                    "statusCode": 422,
+                    "errorMsg": "Unique key violation"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/auth/sign-in": {
+      "post": {
+        "operationId": "AuthController_signIn",
+        "summary": "Sign in a user",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SignInDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The user is logged in",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokensDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "error": true,
+                    "statusCode": 400,
+                    "errorMsg": "Bad Request"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authorisation failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "error": true,
+                    "statusCode": 401,
+                    "errorMsg": "Authorization failed"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Access denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "error": true,
+                    "statusCode": 403,
+                    "errorMsg": "Access denied"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The record was not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "error": true,
+                    "statusCode": 404,
+                    "errorMsg": "Not found"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/auth/logout": {
+      "post": {
+        "operationId": "AuthController_logout",
+        "summary": "Log out of the system",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TokensDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The user has been logged out",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": "User logged out"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": [
+                    {
+                      "error": true,
+                      "statusCode": 401,
+                      "errorMsg": "Unauthorized"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/auth/update-password": {
+      "patch": {
+        "operationId": "AuthController_updatePassword",
+        "summary": "Update a user password",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePasswordDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The user password has been updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokensDto"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid password",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": [
+                    {
+                      "error": true,
+                      "statusCode": 401,
+                      "errorMsg": "Unauthorized"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Access denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "error": true,
+                    "statusCode": 403,
+                    "errorMsg": "Access denied"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/auth/refresh-tokens": {
+      "post": {
+        "operationId": "AuthController_refreshTokens",
+        "summary": "Get a new couple of tokens",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "The tokens have been refreshed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokensDto"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": [
+                    {
+                      "error": true,
+                      "statusCode": 401,
+                      "errorMsg": "Unauthorized"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "auth"
+        ],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "test-case-zftf",
+    "description": "",
+    "version": "1.0",
+    "contact": {
+
+    }
+  },
+  "tags": [],
+  "servers": [],
+  "components": {
+    "securitySchemes": {
+      "bearer": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "type": "http"
+      }
+    },
+    "schemas": {
+      "UserRespDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "id",
+            "nullable": false
+          },
+          "email": {
+            "type": "string",
+            "description": "email",
+            "nullable": false
+          },
+          "nickname": {
+            "type": "object",
+            "description": "nickname",
+            "nullable": false
+          },
+          "avatar": {
+            "type": "object",
+            "description": "avatar",
+            "nullable": true
+          },
+          "confirmed": {
+            "type": "boolean",
+            "description": "is the registration confirmed",
+            "nullable": false
+          }
+        },
+        "required": [
+          "id",
+          "email",
+          "nickname",
+          "avatar",
+          "confirmed"
+        ]
+      },
+      "UpdateUserDto": {
+        "type": "object",
+        "properties": {
+          "nickname": {
+            "type": "string",
+            "description": "user nickname",
+            "nullable": false
+          },
+          "avatar": {
+            "type": "object",
+            "description": "path to avatar image",
+            "nullable": true,
+            "example": "~/path/to/avatar.png"
+          }
+        },
+        "required": [
+          "nickname",
+          "avatar"
+        ]
+      },
+      "SignUpDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "user email",
+            "nullable": false
+          },
+          "nickname": {
+            "type": "string",
+            "description": "user nickname",
+            "nullable": false
+          },
+          "avatar": {
+            "type": "object",
+            "description": "path to avatar image",
+            "nullable": true,
+            "example": "~/path/to/avatar.png"
+          },
+          "domain": {
+            "type": "string",
+            "description": "application domain",
+            "nullable": true
+          },
+          "password": {
+            "type": "string",
+            "description": "user password",
+            "nullable": false,
+            "example": "Password88"
+          }
+        },
+        "required": [
+          "email",
+          "nickname",
+          "avatar",
+          "domain",
+          "password"
+        ]
+      },
+      "SignInDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "email",
+            "nullable": false
+          },
+          "password": {
+            "type": "string",
+            "description": "password",
+            "nullable": false
+          },
+          "domain": {
+            "type": "string",
+            "description": "application domain",
+            "nullable": true
+          }
+        },
+        "required": [
+          "email",
+          "password",
+          "domain"
+        ]
+      },
+      "TokensDto": {
+        "type": "object",
+        "properties": {
+          "accessToken": {
+            "type": "string",
+            "description": "access token",
+            "nullable": false
+          },
+          "refreshToken": {
+            "type": "string",
+            "description": "refresh token",
+            "nullable": false
+          }
+        },
+        "required": [
+          "accessToken",
+          "refreshToken"
+        ]
+      },
+      "UpdatePasswordDto": {
+        "type": "object",
+        "properties": {
+          "accessToken": {
+            "type": "string",
+            "description": "access token",
+            "nullable": false
+          },
+          "refreshToken": {
+            "type": "string",
+            "description": "refresh token",
+            "nullable": false
+          },
+          "currentPassword": {
+            "type": "string",
+            "description": "current password",
+            "nullable": false
+          },
+          "newPassword": {
+            "type": "string",
+            "description": "new password",
+            "nullable": false
+          }
+        },
+        "required": [
+          "accessToken",
+          "refreshToken",
+          "currentPassword",
+          "newPassword"
+        ]
+      }
+    }
+  }
+}
